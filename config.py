@@ -1,5 +1,7 @@
-# Режим відлагодження програми.
+
+
+# Program debugging mode.
 DEBUG_MODE = "ON" # debug_mode [OFF; ON; ALL]
-# OFF - Відлагодження вимкнено;
-# ON - Виводити повідомлення крок-за-кроком для налагодження;
-# ALL - Виводити всі повідомлення для налагодження.
+# OFF - Debugging is disabled;
+# ON - Output step-by-step messages for debugging;
+# ALL - Output all messages for debugging.
