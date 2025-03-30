@@ -1,7 +1,11 @@
+#./Functions/print_scale.py
+
+import config
+
 def print_scale(sine_value):
     """Function to display a scale for sinusoidal values"""
 
-    scale_length = 10  # Length of the scale (can be increased)
+    scale_length = config.SCALE_LENGTH  # Length of the scale (can be increased)
     scaled_value = int((sine_value + 2) * (scale_length // 2))  # Scaling
 
     # Create the scale with padding

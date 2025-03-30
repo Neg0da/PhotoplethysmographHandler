@@ -23,6 +23,8 @@ def main():
     try:
         while True:
             sine_value = arduino.retrieve_data()  # Get the sine wave data
+            current_time = time.strftime("%H:%M:%S", time.localtime())  # Get the current time
+            print(f"[{current_time}] ", end="")  # Print the current time
             print_scale(sine_value)
             time.sleep(config.READ_INTERVAL)  # Wait for n second before getting the next value
 
