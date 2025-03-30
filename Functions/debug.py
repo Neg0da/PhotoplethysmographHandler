@@ -1,3 +1,7 @@
+# ./Functions/debug.py
+# This module provides a simple debugging utility that logs messages based on the debug mode set in the configuration.
+# It allows for different levels of debugging output, including pausing execution for user input.
+
 import config
 import logging
 
@@ -27,12 +31,12 @@ def debug(message: str) -> None:
             pass
         case "ON":
             # If the debug mode is ON, log the debug message
-            logger.debug(f"DEBUG: {message}")
+            logger.debug(f": {message}")
             # Pause execution and wait for the user to press Enter
             input("Press Enter to proceed to the next step...")
         case "ALL":
             # If the debug mode is ALL, log the debug message without pausing
-            logger.debug(f"DEBUG: {message}")
-        case _:
+            logger.debug(f": {message}")
+        case _: 
             # If the debug mode is unknown, log a warning message
             logger.warning(f"Unknown debug mode: {debug_mode}")
