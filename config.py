@@ -1,6 +1,6 @@
 # ./config.py
 
-SLEEP_TIME = 0.05  # Sleep time in seconds for the main loop
+READ_INTERVAL = 0.05 # Time interval (in seconds) to read data from the Arduino simulator.
 
 # Program debugging mode.
 DEBUG_MODE = "ALL" # debug_mode [OFF; ON; ALL]

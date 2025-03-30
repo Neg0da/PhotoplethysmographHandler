@@ -24,7 +24,7 @@ def main():
         while True:
             sine_value = arduino.retrieve_data()  # Get the sine wave data
             print_scale(sine_value)
-            time.sleep(config.SLEEP_TIME)  # Wait for n second before getting the next value
+            time.sleep(config.READ_INTERVAL)  # Wait for n second before getting the next value
 
 
     except KeyboardInterrupt:
