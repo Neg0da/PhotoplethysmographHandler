@@ -6,7 +6,7 @@ from Functions.device_manager import list_connected_devices
 from Functions.debug import debug
 from Functions.print_scale import print_scale  # Importing the function to print the scale
 import time
-
+import config
 
 def main():
     devices = list_connected_devices()  # List all connected devices
@@ -24,7 +24,7 @@ def main():
         while True:
             sine_value = arduino.retrieve_data()  # Get the sine wave data
             print_scale(sine_value)
-            time.sleep(0.1)  # Wait for 1 second before getting the next value
+            time.sleep(config.SLEEP_TIME)  # Wait for n second before getting the next value
 
 
     except KeyboardInterrupt:
