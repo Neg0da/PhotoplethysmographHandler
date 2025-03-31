@@ -3,7 +3,7 @@
 # Importing the ArduinoSimulator class and the function to list connected devices
 from Functions.arduino_simulator import ArduinoSimulator
 from Functions.device_manager import list_connected_devices
-from Functions.debug import debug
+from Functions.simple_debug import debug
 from Functions.print_scale import print_scale  # Importing the function to print the scale
 import time
 import config

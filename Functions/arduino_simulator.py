@@ -2,7 +2,7 @@
 
 import math # This module is used for numerical operations
 import time # This module is used for time-related functions
-from Functions.debug import debug # Importing the debug module for logging
+from Functions.simple_debug import debug # Importing the debug module for logging
 
 class ArduinoSimulator:
     def __init__(self, port, baudrate=9600):

@@ -1,4 +1,4 @@
-# ./Functions/debug.py
+# ./Functions/simple_debug.py
 # This module provides a simple debugging utility that logs messages based on the debug mode set in the configuration.
 # It allows for different levels of debugging output, including pausing execution for user input.
 
