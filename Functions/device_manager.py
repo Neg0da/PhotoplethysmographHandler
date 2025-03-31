@@ -1,48 +1,20 @@
-import serial
-import time
+import serial.tools.list_ports
+from Functions.debug import debug
 
-def find_arduino():
-    """Знаходить підключений Arduino за VID/PID або описом."""
-    print("Searching for connected devices...")
+def list_connected_devices():
+    """Перевіряє всі підключені серійні пристрої."""
     ports = list(serial.tools.list_ports.comports())
-
+    
     if not ports:
-        print("No devices connected.")
-        return None
+        debug("No devices connected.")
+        return []
 
+    # Створюємо список підключених пристроїв
+    connected_devices = [port.device for port in ports]
+
+    # Логуємо знайдені пристрої
+    debug(f"Connected devices: {connected_devices}")
     for port in ports:
-        print(f"Found port: {port.device}, Description: {port.description}, VID: {port.vid}")
-        if "Arduino" in port.description or port.vid == 0x2341:  # 0x2341 - VID для більшості Arduino
-            print(f"Arduino found: {port.device}")
-            return port.device
+        debug(f"Device: {port.device}, Description: {port.description}")
 
-    print("No Arduino found.")
-    return None
-
-def connect_to_arduino():
-    """Шукає Arduino і підключається до нього."""
-    print("Attempting to connect to Arduino...")
-    arduino_port = find_arduino()
-    if not arduino_port:
-        print("Arduino is not connected.")
-        return None
-
-    try:
-        print(f"Opening serial connection to {arduino_port}...")
-        ser = serial.Serial(arduino_port, baudrate=9600, timeout=2)  # timeout збільшено для тесту
-        print(f"Connected to Arduino on {arduino_port}")
-        return ser
-    except serial.SerialException as e:
-        print(f"Failed to connect to Arduino: {e}")
-        return None
-
-if __name__ == "__main__":
-    # Тестування функцій
-    ser = connect_to_arduino()
-    if ser:
-        print("Connection successful!")
-        time.sleep(2)  # Затримка для тестування
-        ser.close()
-        print("Connection closed.")
-    else:
-        print("Connection failed.")
+    return connected_devices
