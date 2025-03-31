@@ -3,31 +3,38 @@
 # Importing the ArduinoSimulator class and the function to list connected devices
 from Functions.arduino_simulator import ArduinoSimulator
 from Functions.device_manager import list_connected_devices
+from Functions.debug import debug
+from Functions.print_scale import print_scale  # Importing the function to print the scale
+import time
+import config
 
 def main():
-    # Check if there are any connected devices
-    devices = list_connected_devices()
-    if devices:
-        print("Connected devices:")
-        for device in devices:
-            print(device)
-        
-        # Create an object to simulate Arduino
-        arduino = ArduinoSimulator(port=devices[0])  # Connect to the first device in the list
-        arduino.connect()
+    devices = list_connected_devices()  # List all connected devices
+    if not devices:
+        debug("No devices connected.")
+        return
+    
+    arduino = ArduinoSimulator(devices[0])  # Create an instance of ArduinoSimulator with the first connected device
+    arduino.connect()  # Simulate the connection
 
-        # Send data to Arduino
-        arduino.send_data("Hello, Arduino!")
-        
-        # Read response from Arduino (simulation)
-        data = arduino.read_data()
-        if data:
-            print(f"Received from Arduino: {data}")
-        
-        # Close the connection
-        arduino.close()
-    else:
-        print("No connected serial devices.")
+    debug("Starting Arduino simulator...")
+
+    # Infinite loop to simulate retrieving and printing sine wave values
+    try:
+        while True:
+            sine_value = arduino.retrieve_data()  # Get the sine wave data
+            current_time = time.strftime("%H:%M:%S", time.localtime())  # Get the current time
+            print(f"[{current_time}] ", end="")  # Print the current time
+            print_scale(sine_value)
+            time.sleep(config.READ_INTERVAL)  # Wait for n second before getting the next value
+
+
+    except KeyboardInterrupt:
+        # Gracefully handle program exit when the user presses Ctrl+C
+        debug("Simulation stopped by user.")
+        arduino.close()  # Close the Arduino simulator connection
+    
 
 if __name__ == "__main__":
     main()
+
