@@ -17,7 +17,6 @@ def print_tree(directory, prefix="", ignored_dirs=None):
             print_tree(path, prefix + extension, ignored_dirs)
 
 if __name__ == "__main__":
-    directory = input("Enter the directory to display the project structure: ")
     ignored = ["__pycache__", ".git", ".idea", ".venv", "env", ".vscode", ".gitignore"]
-    print("Project structure:")
-    print_tree(directory, ignored_dirs=ignored)
+    print("Структура проєкту:")
+    print_tree(os.getcwd(), ignored_dirs=ignored)
