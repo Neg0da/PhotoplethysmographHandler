@@ -71,23 +71,17 @@ class ArduinoConnection:
             self.serial_conn.close()
             print("Connection closed")
 
-# Example usage
-if __name__ == "__main__":
-    arduino = ArduinoConnection()
-    print("Checking available COM ports:")
-    ports = serial.tools.list_ports.comports()
-    for port in ports:
-        print(f"{port.device}: {port.description} (VID: {port.vid}, PID: {port.pid})")
-    
-    # Attempt to connect to Arduino
-    arduino.connect()
-    
-    if arduino.serial_conn:
-        # Send data to Arduino
-        arduino.send_data("Hello Arduino")
-        # Read response from Arduino
-        response = arduino.read_data()
-        if response:
-            print("Received:", response)
-        # Disconnect from Arduino
-        arduino.disconnect()
+if __name__ == "__main__": 
+        # Example
+        arduino = ArduinoConnection()
+        print("Checking available COM ports:")
+        ports = serial.tools.list_ports.comports()
+        for port in ports:
+            print(f"{port.device}: {port.description} (VID: {port.vid}, PID: {port.pid})")
+        arduino.connect()
+        if arduino.serial_conn:
+            arduino.send_data("Hello Arduino")
+            response = arduino.read_data()
+            if response:
+                print("Received:", response)
+            arduino.disconnect()
