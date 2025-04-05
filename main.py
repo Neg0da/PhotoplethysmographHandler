@@ -1,14 +1,20 @@
 # main.py
 
-import Functions.sine_simul as sine_simul
 import time
-import math
 
 simulated_arduino = True
 
 def main():
     if simulated_arduino:
-        sine_simul.simulate_sine_wave(frequency_hz=1.0)
+        from Functions.sine_simul import simulate_sine_wave
+        sine_wave_generator = simulate_sine_wave(frequency_hz=1.0, step=0.05, do_print=False)
+        try:
+            while True:
+                value = next(sine_wave_generator)
+                print(f"Sine Wave Value: {value}")
+                time.sleep(0.05)
+        except KeyboardInterrupt:
+            print("Simulation stopped by user.")
     else:
         import Functions.device_manager
         arduino = Functions.device_manager.ArduinoConnection()
