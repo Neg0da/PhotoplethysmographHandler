@@ -1,6 +1,9 @@
 # PhotoplethysmographHandler
 ## Description
-    
+    ```
+    WORK IN PROGRESS
+    ver 0.2
+    ```
 ## Installation
 ### 1. Clone the repository
 ```
