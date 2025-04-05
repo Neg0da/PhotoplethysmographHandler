@@ -20,4 +20,4 @@ python main.py
 ## Configuration File
 Settings can be adjusted in `config.py`:
 
-`DEBUG = OFF/ON/ALL` – debug mode
+`DEBUG = 0/1/2` – debug mode

@@ -1,4 +1,6 @@
-# ./Functions/device_manager.py
+# ./Functions/device_manager.py 
+# Status: Complete
+# Description: This script manages the connection to an Arduino device using the pyserial library.
 
 import serial
 import serial.tools.list_ports
