@@ -1,40 +1,31 @@
 # main.py
 
-# Importing the ArduinoSimulator class and the function to list connected devices
-from Functions.arduino_simulator import ArduinoSimulator
-from Functions.device_manager import list_connected_devices
-from Functions.debug import debug
-from Functions.print_scale import print_scale  # Importing the function to print the scale
 import time
-import config
+
+simulated_arduino = True
 
 def main():
-    devices = list_connected_devices()  # List all connected devices
-    if not devices:
-        debug("No devices connected.")
-        return
-    
-    arduino = ArduinoSimulator(devices[0])  # Create an instance of ArduinoSimulator with the first connected device
-    arduino.connect()  # Simulate the connection
-
-    debug("Starting Arduino simulator...")
-
-    # Infinite loop to simulate retrieving and printing sine wave values
-    try:
-        while True:
-            sine_value = arduino.retrieve_data()  # Get the sine wave data
-            current_time = time.strftime("%H:%M:%S", time.localtime())  # Get the current time
-            print(f"[{current_time}] ", end="")  # Print the current time
-            print_scale(sine_value)
-            time.sleep(config.READ_INTERVAL)  # Wait for n second before getting the next value
-
-
-    except KeyboardInterrupt:
-        # Gracefully handle program exit when the user presses Ctrl+C
-        debug("Simulation stopped by user.")
-        arduino.close()  # Close the Arduino simulator connection
-    
+    if simulated_arduino:
+        from Functions.sine_simul import simulate_sine_wave
+        sine_wave_generator = simulate_sine_wave(frequency_hz=1.0, step=0.05, do_print=False)
+        try:
+            while True:
+                value = next(sine_wave_generator)
+                print(f"Sine Wave Value: {value}")
+                time.sleep(0.05)
+        except KeyboardInterrupt:
+            print("Simulation stopped by user.")
+    else:
+        import Functions.device_manager
+        arduino = Functions.device_manager.ArduinoConnection()
+        try:
+            arduino.connect()
+            data = arduino.read_data()
+            print(f"Received data: {data}")
+        except Exception as e:
+            print(f"Error: {e}")
+        finally:
+            arduino.disconnect()
 
 if __name__ == "__main__":
     main()
-
